@@ -134,7 +134,7 @@ TWEEN.Tween = function (object) {
 
 	};
 
-	this.start = function (time) {
+	this.start = function (time) {// 可以设置动画开始时间，默认是当下时间
 
 		TWEEN.add(this);
 
@@ -198,7 +198,7 @@ TWEEN.Tween = function (object) {
 
 	};
 
-	this.end = function () {
+	this.end = function () {// 就是将动画设置到结尾的状态
 
 		this.update(_startTime + _duration);
 		return this;
@@ -220,21 +220,21 @@ TWEEN.Tween = function (object) {
 
 	};
 
-	this.repeat = function (times) {
+	this.repeat = function (times) {//重复次数
 
 		_repeat = times;
 		return this;
 
 	};
 
-	this.repeatDelay = function (amount) {
+	this.repeatDelay = function (amount) {// 重复延迟时间
 
 		_repeatDelayTime = amount;
 		return this;
 
 	};
 
-	this.yoyo = function (yoyo) {
+	this.yoyo = function (yoyo) {// 受否 以 yoyo 模式进行动画
 
 		_yoyo = yoyo;
 		return this;
@@ -291,7 +291,7 @@ TWEEN.Tween = function (object) {
 
 	};
 
-	this.update = function (time) {
+	this.update = function (time) {// 更新某时刻的状态
 
 		var property;
 		var elapsed;
@@ -325,14 +325,14 @@ TWEEN.Tween = function (object) {
 			var start = _valuesStart[property] || 0;
 			var end = _valuesEnd[property];
 
-			if (end instanceof Array) {
+			if (end instanceof Array) {// 值是数组类型
 
 				_object[property] = _interpolationFunction(end, value);
 
 			} else {
 
 				// Parses relative end values with start as base (e.g.: +10, -3)
-				if (typeof (end) === 'string') {
+				if (typeof (end) === 'string') {// 值是字符串
 
 					if (end.charAt(0) === '+' || end.charAt(0) === '-') {
 						end = start + parseFloat(end);
@@ -342,7 +342,7 @@ TWEEN.Tween = function (object) {
 				}
 
 				// Protect against non numeric properties.
-				if (typeof (end) === 'number') {
+				if (typeof (end) === 'number') {// 值是数字
 					_object[property] = start + (end - start) * value;
 				}
 
@@ -369,7 +369,7 @@ TWEEN.Tween = function (object) {
 						_valuesStartRepeat[property] = _valuesStartRepeat[property] + parseFloat(_valuesEnd[property]);
 					}
 
-					if (_yoyo) {
+					if (_yoyo) {// 如果是 悠悠球模式， 首尾值调换
 						var tmp = _valuesStartRepeat[property];
 
 						_valuesStartRepeat[property] = _valuesEnd[property];
@@ -811,7 +811,7 @@ TWEEN.Interpolation = {
 
 		},
 
-		Bernstein: function (n, i) {
+		Bernstein: function (n, i) {//https://zh.wikipedia.org/wiki/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC
 
 			var fc = TWEEN.Interpolation.Utils.Factorial;
 
@@ -819,7 +819,7 @@ TWEEN.Interpolation = {
 
 		},
 
-		Factorial: (function () {
+		Factorial: (function () {//阶乘的
 
 			var a = [1];
 
@@ -842,7 +842,7 @@ TWEEN.Interpolation = {
 
 		})(),
 
-		CatmullRom: function (p0, p1, p2, p3, t) {
+		CatmullRom: function (p0, p1, p2, p3, t) {//Catmull-Rom曲线 //http://blog.csdn.net/i_dovelemon/article/details/47984241
 
 			var v0 = (p2 - p0) * 0.5;
 			var v1 = (p3 - p1) * 0.5;
